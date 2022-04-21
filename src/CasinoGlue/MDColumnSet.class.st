@@ -1,7 +1,7 @@
 Class {
 	#name : #MDColumnSet,
 	#superclass : #MDDataContainer,
-	#category : #CasinoGlue
+	#category : #'CasinoGlue-Model-Data'
 }
 
 { #category : #'as yet unclassified' }

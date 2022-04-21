@@ -8,7 +8,7 @@ Class {
 		'allowAdditions',
 		'allowFilters'
 	],
-	#category : #CasinoGlue
+	#category : #'CasinoGlue-Model-Data'
 }
 
 { #category : #'as yet unclassified' }

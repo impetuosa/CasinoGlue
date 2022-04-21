@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'controlClass'
 	],
-	#category : #CasinoGlue
+	#category : #'CasinoGlue-Test'
 }
 
 { #category : #'building suites' }

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'sql'
 	],
-	#category : #CasinoGlue
+	#category : #'CasinoGlue-Model-Data'
 }
 
 { #category : #'as yet unclassified' }

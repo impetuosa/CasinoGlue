@@ -6,7 +6,7 @@ Class {
 		'controlClass',
 		'expectedImportedControlClass'
 	],
-	#category : #CasinoGlue
+	#category : #'CasinoGlue-Test'
 }
 
 { #category : #'building suites' }

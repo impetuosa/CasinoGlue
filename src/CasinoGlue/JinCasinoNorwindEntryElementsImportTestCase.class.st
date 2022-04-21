@@ -1,13 +1,13 @@
 Class {
 	#name : #JinCasinoNorwindEntryElementsImportTestCase,
 	#superclass : #JinCasinoNorwindAbstractImportTestCase,
-	#category : #CasinoGlue
+	#category : #'CasinoGlue-Test'
 }
 
 { #category : #tests }
 JinCasinoNorwindEntryElementsImportTestCase >> setUp [
 	super setUp.
-	factory := JinCasinoUIModelStatelessFactory  new
+	factory := CGUIModelStatelessFactory  new
 ]
 
 { #category : #tests }
@@ -33,7 +33,7 @@ JinCasinoNorwindEntryElementsImportTestCase >> testImportedGeneratedBusinessPage
 { #category : #tests }
 JinCasinoNorwindEntryElementsImportTestCase >> testJinFormImportsIntoJinPage [
 	self importAnyForm.
-	self assert: importedForm class equals: JinCasinoPage 
+	self assert: importedForm class equals: CGPage 
 	
 ]
 
@@ -48,7 +48,7 @@ JinCasinoNorwindEntryElementsImportTestCase >> testJinFormImportsTheNameAndNoneW
 { #category : #tests }
 JinCasinoNorwindEntryElementsImportTestCase >> testJinProjectImportsIntoJinCasinoProject [
 	self importProject.
-	self assert: importedProject class equals: JinCasinoProject
+	self assert: importedProject class equals: CGImportingContext
 ]
 
 { #category : #tests }

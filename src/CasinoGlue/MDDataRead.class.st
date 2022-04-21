@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'reader'
 	],
-	#category : #CasinoGlue
+	#category : #'CasinoGlue-Model-Data'
 }
 
 { #category : #'as yet unclassified' }

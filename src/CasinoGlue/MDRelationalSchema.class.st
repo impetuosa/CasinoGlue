@@ -1,5 +1,5 @@
 Class {
 	#name : #MDRelationalSchema,
 	#superclass : #MDDataContainer,
-	#category : #CasinoGlue
+	#category : #'CasinoGlue-Model-Data'
 }

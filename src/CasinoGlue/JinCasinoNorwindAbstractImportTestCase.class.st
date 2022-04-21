@@ -9,7 +9,7 @@ Class {
 		'control',
 		'importedControl'
 	],
-	#category : #CasinoGlue
+	#category : #'CasinoGlue-Test'
 }
 
 { #category : #'as yet unclassified' }
@@ -64,5 +64,5 @@ JinCasinoNorwindAbstractImportTestCase >> importProject [
 { #category : #running }
 JinCasinoNorwindAbstractImportTestCase >> setUp [
 	super setUp.
-	factory := JinCasinoUIModelStatelessFactory  new
+	factory := CGUIModelStatelessFactory  new
 ]

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'kind'
 	],
-	#category : #CasinoGlue
+	#category : #'CasinoGlue-Model-Data'
 }
 
 { #category : #accessing }

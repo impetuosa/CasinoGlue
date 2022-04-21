@@ -1,7 +1,7 @@
 Class {
 	#name : #JinCSNModelExporterAngularBLSpecific,
 	#superclass : #CSNModelExporterAngular,
-	#category : #CasinoGlue
+	#category : #'CasinoGlue-Model-Data'
 }
 
 { #category : #visiting }
