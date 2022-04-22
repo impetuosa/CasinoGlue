@@ -4,7 +4,9 @@ Class {
 	#instVars : [
 		'xmlStream',
 		'modelClassReference',
-		'behaviorClassReference'
+		'behaviorClassReference',
+		'cssName',
+		'templateName'
 	],
 	#category : #'CasinoGlue-Moxing-Writer'
 }
@@ -21,6 +23,12 @@ MOAngularComponentTemplateWriter >> configuration [
 	^ CGExportingBrushConfiguration default
 ]
 
+{ #category : #'as yet unclassified' }
+MOAngularComponentTemplateWriter >> cssName: aString [
+
+	cssName := aString
+]
+
 { #category : #accessing }
 MOAngularComponentTemplateWriter >> modelClassReference: aMOTypeReference [ 
 	modelClassReference := aMOTypeReference
@@ -30,6 +38,12 @@ MOAngularComponentTemplateWriter >> modelClassReference: aMOTypeReference [
 MOAngularComponentTemplateWriter >> template [
 
 	^ XMLHTMLParser parse: xmlStream contents
+]
+
+{ #category : #'as yet unclassified' }
+MOAngularComponentTemplateWriter >> templateName: aString [
+
+	templateName := aString
 ]
 
 { #category : #visiting }
@@ -163,13 +177,15 @@ MOAngularComponentTemplateWriter >> visitJinCasinoWidgetUsage: aJinCasinoWidgetU
 ]
 
 { #category : #writing }
-MOAngularComponentTemplateWriter >> writeHtmlFor: aCSNUIObject into: component [ 
+MOAngularComponentTemplateWriter >> writeHtmlFor: aCSNUIObject into: component [
 
 	self assert: xmlStream isNil.
-	xmlStream := XMLWriter new .
+	xmlStream := XMLWriter new.
 	xmlStream enablePrettyPrinting.
 	aCSNUIObject accept: self.
-	component template: self template.
+	component writeTemplateDocument: [ :doc | 
+		doc name: templateName.
+		doc document: self template ]
 ]
 
 { #category : #writing }

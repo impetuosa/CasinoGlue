@@ -4,10 +4,18 @@ Class {
 	#instVars : [
 		'writer',
 		'serviceClassReference',
-		'modelClassReference'
+		'modelClassReference',
+		'cssName',
+		'templateName'
 	],
 	#category : #'CasinoGlue-GlueAPI'
 }
+
+{ #category : #'as yet unclassified' }
+CGWidgetExporter >> cssName: aString [
+
+	cssName := aString
+]
 
 { #category : #actions }
 CGWidgetExporter >> export: aCGPage [
@@ -39,6 +47,12 @@ CGWidgetExporter >> serviceClassReference: aMOTypeReference [
 	serviceClassReference := aMOTypeReference
 ]
 
+{ #category : #'as yet unclassified' }
+CGWidgetExporter >> templateName: aString [
+
+	templateName := aString
+]
+
 { #category : #'instance creation' }
 CGWidgetExporter >> typeReferenceTo: aDeclaration using: aWriter [
 
@@ -67,14 +81,21 @@ CGWidgetExporter >> visitCSNPage: aJinCasinoPage [
 			                            modelClassReference:
 				                            self modelClassReference;
 			                            serviceClassReference:
-				                            self serviceClassReference.
+				                            self serviceClassReference;
+			                            cssName: cssName;
+			                            templateName: templateName;
+			                            yourself.
 
 		          behavior := behaviorWriter
 			                      writeBehaviorFor: aJinCasinoPage
 			                      into: component
 			                      bindingTo: modelClassReference.
 
-		          templateWriter := MOAngularComponentTemplateWriter new.
+		          templateWriter := MOAngularComponentTemplateWriter new
+			                            cssName: cssName;
+			                            templateName: templateName;
+			                            yourself.
+
 
 		          templateWriter
 			          modelClassReference: self modelClassReference;

@@ -6,7 +6,9 @@ Class {
 		'writer',
 		'ongoingRule',
 		'modelClassReference',
-		'serviceClassReference'
+		'serviceClassReference',
+		'cssName',
+		'templateName'
 	],
 	#category : #'CasinoGlue-Moxing-Writer'
 }
@@ -14,6 +16,18 @@ Class {
 { #category : #accessing }
 MOAngularComponentBehaviorWriter >> behavior [
 	^ behavior
+]
+
+{ #category : #'as yet unclassified' }
+MOAngularComponentBehaviorWriter >> componentName: aString [
+
+	^ aString asLowercase
+]
+
+{ #category : #'as yet unclassified' }
+MOAngularComponentBehaviorWriter >> cssName: aString [
+
+	cssName := aString
 ]
 
 { #category : #accessing }
@@ -24,6 +38,12 @@ MOAngularComponentBehaviorWriter >> modelClassReference: aMOTypeReference [
 { #category : #accessing }
 MOAngularComponentBehaviorWriter >> serviceClassReference: aMOTypeReference [ 
 	serviceClassReference := aMOTypeReference
+]
+
+{ #category : #'as yet unclassified' }
+MOAngularComponentBehaviorWriter >> templateName: aString [
+
+	templateName := aString
 ]
 
 { #category : #evaluating }
@@ -69,9 +89,11 @@ MOAngularComponentBehaviorWriter >> visitCSNLayout: aCGAbsolutePositionLayout [
 MOAngularComponentBehaviorWriter >> visitCSNPage: aCGPage [
 
 	^ FylgjaAngularAddComponentSimpleBehavior new
-		  name: aCGPage name;
+		  name: (self componentName: aCGPage name);
 		  modelClassReference: modelClassReference;
-		  serviceClassReference: serviceClassReference; 
+		  serviceClassReference: serviceClassReference;
+		  cssName: cssName;
+		  templateName: templateName;
 		  withinTheClass: [ :rule | 
 			  ongoingRule := rule.
 			  aCGPage layout acceptVisitor: self ];
