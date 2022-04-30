@@ -75,7 +75,7 @@ CGUIModelAbstractStatelessFactory >> visitAlignment: anAttributeName value: aVal
 { #category : #visiting }
 CGUIModelAbstractStatelessFactory >> visitAllowAutoCorrect: aString value: aBoolean [
 
-	self assert: aBoolean
+
 ]
 
 { #category : #visiting }
@@ -116,7 +116,6 @@ CGUIModelAbstractStatelessFactory >> visitAutoTab: aString value: aBoolean [
 { #category : #visiting }
 CGUIModelAbstractStatelessFactory >> visitBackColor: aString value: anInteger [
 
-	self assert: anInteger = 16777215
 ]
 
 { #category : #visiting }
@@ -251,18 +250,17 @@ CGUIModelAbstractStatelessFactory >> visitColumnHeads: anAttributeName value: aV
 { #category : #visiting }
 CGUIModelAbstractStatelessFactory >> visitColumnHidden: aString value: aBoolean [
 
-	self assert: aBoolean not
 ]
 
 { #category : #visiting }
 CGUIModelAbstractStatelessFactory >> visitColumnOrder: aMOAttribute value: anInteger [
 
-	self assert: anInteger = 0
+
 ]
 
 { #category : #visiting }
 CGUIModelAbstractStatelessFactory >> visitColumnWidth: aString value: anInteger [ 
-	self assert:anInteger = -1 .
+
 ]
 
 { #category : #visiting }
@@ -297,7 +295,7 @@ CGUIModelAbstractStatelessFactory >> visitCursorOnHover: anAttributeName value: 
 
 { #category : #visiting }
 CGUIModelAbstractStatelessFactory >> visitDecimalPlaces: aString value: anInteger [ 
-	self assert: anInteger = 255
+
 ]
 
 { #category : #'as yet unclassified' }
@@ -325,7 +323,7 @@ CGUIModelAbstractStatelessFactory >> visitDisplayAs: anAttributeName value: aVal
 { #category : #visiting }
 CGUIModelAbstractStatelessFactory >> visitDisplayAsHyperlink: aString value: anInteger [
 
-	self assert: anInteger = 0
+
 ]
 
 { #category : #visiting }
@@ -428,7 +426,7 @@ CGUIModelAbstractStatelessFactory >> visitForeTint: aString value: aNumber [
 { #category : #visiting }
 CGUIModelAbstractStatelessFactory >> visitFormat: anAttributeName value: aString [
 
-	self assert: aString isEmptyOrNil
+
 ]
 
 { #category : #visiting }
@@ -1172,12 +1170,12 @@ CGUIModelAbstractStatelessFactory >> visitSourceObject: anAttributeName value: a
 { #category : #visiting }
 CGUIModelAbstractStatelessFactory >> visitSpecialEffect: aMOAttribute value: anInteger [
 
-	self assert: anInteger = 0
+
 ]
 
 { #category : #visiting }
 CGUIModelAbstractStatelessFactory >> visitStatusBarText: aString value: aString2 [ 
-	self assert: aString2 isEmptyOrNil
+
 ]
 
 { #category : #'as yet unclassified' }

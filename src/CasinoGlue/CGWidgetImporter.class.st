@@ -189,10 +189,12 @@ CGWidgetImporter >> visitForm: aJinForm [
 
 	^ self pushInStack: (self importForm: aJinForm) during: [ 
 		  self bindDataReadAccess: aJinForm.
-		  aJinForm allContainments do: [ :a | 
-			  self
-				  useState: (widgetInstance at: a sanitizedName)
-				  during: [ a acceptVisitor: self ] ] ]
+		  aJinForm allContainments
+			  select: [ :c | c isVariable ]
+			  thenDo: [ :a | 
+				  self
+					  useState: (widgetInstance at: a sanitizedName)
+					  during: [ a acceptVisitor: self ] ] ]
 ]
 
 { #category : #visiting }
