@@ -687,7 +687,6 @@ CGUIModelAbstractStatelessFactory >> visitLeftMargin: aString value: anInteger [
 { #category : #visiting }
 CGUIModelAbstractStatelessFactory >> visitLeftPadding: aMOAttribute value: anInteger [
 
-	self assert: anInteger = 30
 ]
 
 { #category : #'as yet unclassified' }

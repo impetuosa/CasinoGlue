@@ -83,13 +83,12 @@ CGUIModelStatelessFactory >> importControl: aControl widgetState: aState inTheCo
 CGUIModelStatelessFactory >> importForm: aForm widgetInstance: anInstance inTheContextOf: aProject [
 
 	| layout page |
-
 	layout := CSNLVerticalLayout new.
 	aProject mooseModel add: layout.
 
 	page := CGPage new
 		        realClassName: aForm class name;
-		        name: aForm name;
+		        name: (self sanitizeName: aForm name);
 		        project: aProject;
 		        layout: layout;
 		        yourself.
@@ -227,6 +226,14 @@ CGUIModelStatelessFactory >> resolveLayoutContainer: aLayoutId section: aSection
 			section mooseModel add: layoutedContainer layout.
 			section addWidget: layoutedContainer.
 			layoutedContainer ]
+]
+
+{ #category : #'as yet unclassified' }
+CGUIModelStatelessFactory >> sanitizeName: aFormOrReport [
+
+	^ (aFormOrReport name copyReplaceAll: 'Form_' with: '')
+		  copyReplaceAll: 'Report_'
+		  with: ''
 ]
 
 { #category : #'visiting - properties' }

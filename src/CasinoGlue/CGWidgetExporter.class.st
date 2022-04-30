@@ -74,6 +74,7 @@ CGWidgetExporter >> use: aWriter during: aBlock [
 CGWidgetExporter >> visitCSNPage: aJinCasinoPage [
 
 	| templateWriter behaviorWriter behavior return |
+
 	return := writer writeAngularComponent: [ :component | 
 		          component name: aJinCasinoPage name asLowercase.
 
@@ -109,7 +110,8 @@ CGWidgetExporter >> visitCSNPage: aJinCasinoPage [
 		          self
 			          use: component
 			          during: [ 
-			          aJinCasinoPage attributes do: [ :a | a accept: self ] ] ].
+			          aJinCasinoPage attributes do: [ :a | a accept: self ] ].
+					 ].
 	^ return
 ]
 

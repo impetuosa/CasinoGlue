@@ -85,8 +85,9 @@ MOAngularComponentTemplateWriter >> visitCSNLVerticalLayout: aCSNLVerticalLayout
 
 { #category : #visiting }
 MOAngularComponentTemplateWriter >> visitCSNPage: aJinCasinoPage [ 
-	aJinCasinoPage widgets do: [ : w | w accept: self  ].
 
+	aJinCasinoPage mainContainerWidgets  do: [ : w | w accept: self  ].
+	aJinCasinoPage widgets do: [ : w | w accept: self  ].
 ]
 
 { #category : #'as yet unclassified' }
@@ -160,10 +161,11 @@ MOAngularComponentTemplateWriter >> visitCSNUITab: aCSNUITab [
 
 { #category : #'as yet unclassified' }
 MOAngularComponentTemplateWriter >> visitCSNUITabManager: aCSNUITabManager [
+
 	(self configuration brushFor: aCSNUITabManager)
 		write: aCSNUITabManager
 		into: xmlStream
-		with: [ aCSNUITabManager pages do: [ :w | w accept: self ] ]
+		with: [ aCSNUITabManager widgets do: [ :w | w accept: self ] ]
 ]
 
 { #category : #'as yet unclassified' }
@@ -185,7 +187,11 @@ MOAngularComponentTemplateWriter >> writeHtmlFor: aCSNUIObject into: component [
 	aCSNUIObject accept: self.
 	component writeTemplateDocument: [ :doc | 
 		doc name: templateName.
-		doc document: self template ]
+		doc document: self template ].
+	component writeCssDocument: [ :doc | 
+		doc
+			name: cssName;
+			document: '' ]
 ]
 
 { #category : #writing }
