@@ -57,7 +57,7 @@ CGWidgetExporter >> templateName: aString [
 CGWidgetExporter >> typeReferenceTo: aDeclaration using: aWriter [
 
 	^ (aWriter typeReferenceNamed: aDeclaration name)
-		  candidate: aDeclaration;
+		  referee: aDeclaration;
 		  yourself
 ]
 
