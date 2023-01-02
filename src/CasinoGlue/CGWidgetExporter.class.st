@@ -6,10 +6,19 @@ Class {
 		'serviceClassReference',
 		'modelClassReference',
 		'cssName',
-		'templateName'
+		'templateName',
+		'fylgja',
+		'croppingWith',
+		'lookUp'
 	],
 	#category : #'CasinoGlue-GlueAPI'
 }
+
+{ #category : #accessing }
+CGWidgetExporter >> croppingWith: aBlock [
+
+	croppingWith := aBlock
+]
 
 { #category : #'as yet unclassified' }
 CGWidgetExporter >> cssName: aString [
@@ -21,6 +30,18 @@ CGWidgetExporter >> cssName: aString [
 CGWidgetExporter >> export: aCGPage [
 
 	^ aCGPage acceptVisitor: self
+]
+
+{ #category : #accessing }
+CGWidgetExporter >> fylgja: aFylgjaDerivativeModel [
+
+	fylgja := aFylgjaDerivativeModel
+]
+
+{ #category : #'instance creation' }
+CGWidgetExporter >> lookUp: aFylgjaLookUpContext [
+
+	lookUp := aFylgjaLookUpContext
 ]
 
 { #category : #visiting }
@@ -71,14 +92,24 @@ CGWidgetExporter >> use: aWriter during: aBlock [
 ]
 
 { #category : #visiting }
+CGWidgetExporter >> visitCSNAttribute: aCSNAttribute [
+
+	" nothing to do "
+
+	
+]
+
+{ #category : #visiting }
 CGWidgetExporter >> visitCSNPage: aJinCasinoPage [
 
 	| templateWriter behaviorWriter behavior return |
-
 	return := writer writeAngularComponent: [ :component | 
 		          component name: aJinCasinoPage name asLowercase.
 
 		          behaviorWriter := MOAngularComponentBehaviorWriter new
+			                            fylgja: fylgja;
+			                            croppingWith: croppingWith;
+			                            lookUp: lookUp;
 			                            modelClassReference:
 				                            self modelClassReference;
 			                            serviceClassReference:
@@ -90,13 +121,12 @@ CGWidgetExporter >> visitCSNPage: aJinCasinoPage [
 		          behavior := behaviorWriter
 			                      writeBehaviorFor: aJinCasinoPage
 			                      into: component
-			                      bindingTo: modelClassReference.
+			                      bindingTo: self modelClassReference.
 
 		          templateWriter := MOAngularComponentTemplateWriter new
 			                            cssName: cssName;
 			                            templateName: templateName;
 			                            yourself.
-
 
 		          templateWriter
 			          modelClassReference: self modelClassReference;
@@ -110,8 +140,7 @@ CGWidgetExporter >> visitCSNPage: aJinCasinoPage [
 		          self
 			          use: component
 			          during: [ 
-			          aJinCasinoPage attributes do: [ :a | a accept: self ] ].
-					 ].
+			          aJinCasinoPage attributes do: [ :a | a accept: self ] ] ].
 	^ return
 ]
 

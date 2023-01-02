@@ -15,6 +15,11 @@ MOAngularHtmlBodyComplementsCoWriter >> brush: aJinCasinoAngularSimpleBrush stre
 ]
 
 { #category : #visiting }
+MOAngularHtmlBodyComplementsCoWriter >> visitCGDataBinding: aCGDataBinding [ 
+	" Nothing to do here "
+]
+
+{ #category : #visiting }
 MOAngularHtmlBodyComplementsCoWriter >> visitCSNAttribute: aCSNUITop [ 
 		" Nothing to do here "
 ]

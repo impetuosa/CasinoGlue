@@ -42,6 +42,14 @@ CGWidgetImporter >> factory [
 ]
 
 { #category : #'as yet unclassified' }
+CGWidgetImporter >> formGroupAttribute [
+
+	^ CSNAttribute new
+		  name: '[formGroup]';
+		  attributeValue: 'formValueHolder'
+]
+
+{ #category : #'as yet unclassified' }
 CGWidgetImporter >> import: anEntity [
 
 	importedProject := self importingContextNamed: anEntity name.
@@ -187,14 +195,26 @@ CGWidgetImporter >> visitCustomControl: aJinControlGeneric [
 { #category : #'as yet unclassified' }
 CGWidgetImporter >> visitForm: aJinForm [
 
-	^ self pushInStack: (self importForm: aJinForm) during: [ 
-		  self bindDataReadAccess: aJinForm.
-		  aJinForm allContainments
-			  select: [ :c | c isVariable ]
-			  thenDo: [ :a | 
-				  self
-					  useState: (widgetInstance at: a sanitizedName)
-					  during: [ a acceptVisitor: self ] ] ]
+	| formWidget |
+	formWidget := self
+		              pushInStack: (self importForm: aJinForm)
+		              during: [ 
+			              self bindDataReadAccess: aJinForm.
+			              aJinForm allContainments
+				              select: [ :c | c isVariable ]
+				              thenDo: [ :a | 
+					              self
+						              useState: (widgetInstance at: a sanitizedName)
+						              during: [ a acceptVisitor: self ] ] ].
+	
+	
+	formWidget addAttribute: self formGroupAttribute. 
+	
+	CGWidgetActionsImporter new
+		originalWidget: aJinForm;
+		importInto: formWidget.
+
+	^ formWidget
 ]
 
 { #category : #visiting }

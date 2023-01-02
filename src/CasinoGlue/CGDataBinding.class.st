@@ -2,11 +2,16 @@ Class {
 	#name : #CGDataBinding,
 	#superclass : #CSNAttribute,
 	#instVars : [
-		'#attribute => FMProperty',
-		'#restrictions => FMProperty'
+		'#source => FMProperty'
 	],
 	#category : #'CasinoGlue-Model'
 }
+
+{ #category : #testing }
+CGDataBinding >> accept: aVisitor [
+
+	^ aVisitor visitCGDataBinding: self
+]
 
 { #category : #testing }
 CGDataBinding >> isDataBinding [

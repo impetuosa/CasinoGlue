@@ -37,6 +37,14 @@ CGExportingBrushConfiguration >> visitCSNLTabulateLayout: aCSNLTabulateLayout [
 	brush := CGAngularTabulatingLayoutBrush new
 ]
 
+{ #category : #visiting }
+CGExportingBrushConfiguration >> visitCSNPage: aCSNPage [
+
+	brush := self newSimpleBrush
+		         tag: 'form';
+		         yourself
+]
+
 { #category : #'as yet unclassified' }
 CGExportingBrushConfiguration >> visitCSNUIButton: aCSNUIButton [
 	brush := self newSimpleBrush
@@ -104,9 +112,17 @@ CGExportingBrushConfiguration >> visitCSNUIParagraph: aCSNUIParagraph [
 
 { #category : #'as yet unclassified' }
 CGExportingBrushConfiguration >> visitCSNUISelect: aCSNUISelect [
-	brush := self newSimpleBrush
-		tag: 'select';
-		yourself
+
+	aCSNUISelect isBoundToData
+		ifTrue: [ 
+			brush := CGAngularDataBoundSelectBrush new
+				         formControlName: aCSNUISelect realName;
+				         boundedTo: aCSNUISelect dataBinding source;
+				         yourself ]
+		ifFalse: [ 
+			brush := self newSimpleBrush
+				         tag: 'select';
+				         yourself ]
 ]
 
 { #category : #'as yet unclassified' }

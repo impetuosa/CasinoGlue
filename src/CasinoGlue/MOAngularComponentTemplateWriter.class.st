@@ -84,10 +84,14 @@ MOAngularComponentTemplateWriter >> visitCSNLVerticalLayout: aCSNLVerticalLayout
 ]
 
 { #category : #visiting }
-MOAngularComponentTemplateWriter >> visitCSNPage: aJinCasinoPage [ 
+MOAngularComponentTemplateWriter >> visitCSNPage: aCSNPage [
 
-	aJinCasinoPage mainContainerWidgets  do: [ : w | w accept: self  ].
-	aJinCasinoPage widgets do: [ : w | w accept: self  ].
+	(self configuration brushFor: aCSNPage)
+		write: aCSNPage
+		into: xmlStream
+		with: [ 
+			aCSNPage mainContainerWidgets do: [ :w | w accept: self ].
+			aCSNPage widgets do: [ :w | w accept: self ] ]
 ]
 
 { #category : #'as yet unclassified' }

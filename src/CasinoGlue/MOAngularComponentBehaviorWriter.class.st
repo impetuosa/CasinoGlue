@@ -8,7 +8,10 @@ Class {
 		'modelClassReference',
 		'serviceClassReference',
 		'cssName',
-		'templateName'
+		'templateName',
+		'fylgja',
+		'lookUp',
+		'croppingWith'
 	],
 	#category : #'CasinoGlue-Moxing-Writer'
 }
@@ -24,10 +27,28 @@ MOAngularComponentBehaviorWriter >> componentName: aString [
 	^ aString asLowercase
 ]
 
+{ #category : #visiting }
+MOAngularComponentBehaviorWriter >> croppingWith: aBlock [
+
+	croppingWith := aBlock
+]
+
 { #category : #'as yet unclassified' }
 MOAngularComponentBehaviorWriter >> cssName: aString [
 
 	cssName := aString
+]
+
+{ #category : #visiting }
+MOAngularComponentBehaviorWriter >> fylgja: aFylgjaDerivativeModel [
+
+	fylgja := aFylgjaDerivativeModel
+]
+
+{ #category : #visiting }
+MOAngularComponentBehaviorWriter >> lookUp: aFylgjaLookUpContext [
+
+	lookUp := aFylgjaLookUpContext
 ]
 
 { #category : #accessing }
@@ -53,6 +74,12 @@ MOAngularComponentBehaviorWriter >> use: aWriter during: aBlock [
 	prev := writer.
 	writer := aWriter.
 	^ aBlock ensure: [ writer := prev ]
+]
+
+{ #category : #visiting }
+MOAngularComponentBehaviorWriter >> visitCGEvent: aCGEvent [
+
+	ongoingRule addMethod: aCGEvent method
 ]
 
 { #category : #visiting }
@@ -89,6 +116,9 @@ MOAngularComponentBehaviorWriter >> visitCSNLayout: aCGAbsolutePositionLayout [
 MOAngularComponentBehaviorWriter >> visitCSNPage: aCGPage [
 
 	^ FylgjaAngularAddComponentSimpleBehavior new
+		  fylgja: fylgja;
+		  croppingWith: croppingWith;
+		  lookUp: lookUp;
 		  name: (self componentName: aCGPage name);
 		  modelClassReference: modelClassReference;
 		  serviceClassReference: serviceClassReference;
@@ -172,9 +202,10 @@ MOAngularComponentBehaviorWriter >> visitCollection: aCollection [
 ]
 
 { #category : #visiting }
-MOAngularComponentBehaviorWriter >> visitWidget: aWidget [ 
-	ongoingRule informUsageOf: aWidget. 
-	
+MOAngularComponentBehaviorWriter >> visitWidget: aWidget [
+
+	ongoingRule informUsageOf: aWidget.
+	self visitCollection: aWidget actions
 ]
 
 { #category : #writing }

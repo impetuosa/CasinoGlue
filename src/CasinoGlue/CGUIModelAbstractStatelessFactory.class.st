@@ -4,6 +4,22 @@ Class {
 	#category : #'CasinoGlue-GlueAPI'
 }
 
+{ #category : #'as yet unclassified' }
+CGUIModelAbstractStatelessFactory >> looksLikeSql: aString [
+
+	^ [ 
+	  aString isNotEmpty and: [ 
+		  PostgreSQLParser parseSelectQuery: aString toPG.
+		  true ] ]
+		  on: Error
+		  do: [ ^ false ]
+]
+
+{ #category : #visiting }
+CGUIModelAbstractStatelessFactory >> produceEventFor: anEventName ifIsEventProcedure: aConfiguration [
+
+]
+
 { #category : #visiting }
 CGUIModelAbstractStatelessFactory >> visitAccChild: aMOAttribute value: anUndefinedObject [
 
@@ -268,9 +284,13 @@ CGUIModelAbstractStatelessFactory >> visitColumnWidths: aString value: aString2 
 
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitControlSource: aMOAttribute value: aString [ 
+{ #category : #'visiting - data' }
+CGUIModelAbstractStatelessFactory >> visitControlSource: aMOAttribute value: aValueString [
 
+	^ (self looksLikeSql: aValueString) ifTrue: [ 
+		  CGDataBinding new source: (FylgjaSQLSource new
+				   sql: aValueString;
+				   yourself) ]
 ]
 
 { #category : #visiting }
@@ -313,7 +333,7 @@ CGUIModelAbstractStatelessFactory >> visitDefaultPictureType: anAttributeName va
 { #category : #visiting }
 CGUIModelAbstractStatelessFactory >> visitDefaultValue: aMOAttribute value: aString [
 
-	self assert: aString isEmpty
+
 ]
 
 { #category : #'as yet unclassified' }
@@ -770,185 +790,242 @@ CGUIModelAbstractStatelessFactory >> visitOldValue: aString value: anUndefinedOb
 	self assert: anUndefinedObject isEmptyOrNil
 ]
 
-{ #category : #'as yet unclassified' }
-CGUIModelAbstractStatelessFactory >> visitOnAttachmentCurrent: anAttributeName value: aValue [ 
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnAttachmentCurrent: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
+
+	
 ]
 
-{ #category : #'as yet unclassified' }
-CGUIModelAbstractStatelessFactory >> visitOnAttachmentCurrentMacro: anAttributeName value: aValue [ 
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnAttachmentCurrentMacro: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
+
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnChange: aString value: aString2 [
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnChange: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
 
-	self assert: aString2 isEmptyOrNil
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnChangeMacro: aMOAttribute value: aString [ 
-	self assert: aString isEmpty 
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnChangeMacro: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
+
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnClick: aMOAttribute value: aString [ 
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnClick: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
 
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnClickMacro: aString value: aString2 [
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnClickMacro: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
 
-
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnDblClick: aString value: aString2 [
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnDblClick: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
 
-
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnDblClickMacro: aString value: aString2 [
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnDblClickMacro: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
 
-
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnDirty: aString value: aString2 [ 
-	self assert: aString2 isEmptyOrNil
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnDirty: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
+
+	
 ]
 
-{ #category : #'as yet unclassified' }
-CGUIModelAbstractStatelessFactory >> visitOnDirtyMacro: anAttributeName value: aValue [ 
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnDirtyMacro: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
+
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnEnter: aMOAttribute value: aString [
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnEnter: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
 
-	self assert: aString isEmpty
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnEnterMacro: aString value: aString2 [ 
-	 self assert: aString2 isEmptyOrNil 
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnEnterMacro: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
+
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnExit: aMOAttribute value: aString [
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnExit: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
 
-	self assert: aString isEmptyOrNil
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnExitMacro: aString value: aString2 [
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnExitMacro: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
 
-	self assert: aString2 isEmptyOrNil
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnGotFocus: aString value: aString2 [ 
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnGotFocus: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
 
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnGotFocusMacro: aMOAttribute value: aString [
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnGotFocusMacro: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
 
-
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnKeyDown: aString value: aString2 [
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnKeyDown: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
 
-	self assert: aString2 isEmptyOrNil
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnKeyDownMacro: aMOAttribute value: aString [ 
- self assert: aString isEmptyOrNil 
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnKeyDownMacro: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
+
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnKeyPress: aString value: aString2 [
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnKeyPress: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
 
-	self assert: aString2 isEmptyOrNil
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnKeyPressMacro: aMOAttribute value: aString [
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnKeyPressMacro: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
 
-	self assert: aString isEmpty
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnKeyUp: aString value: aString2 [ 
-	self assert: aString2 isEmptyOrNil
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnKeyUp: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
+
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnKeyUpMacro: aString value: aString2 [ 
-	 self assert: aString2 isEmptyOrNil 
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnKeyUpMacro: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
+
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnLostFocus: aString value: aString2 [
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnLostFocus: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
 
-	self assert: aString2 isEmptyOrNil
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnLostFocusMacro: aString value: aString2 [ 
-	self assert: aString2 isEmptyOrNil
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnLostFocusMacro: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
+
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnMouseDown: aString value: aString2 [ 
-	self assert: aString2 isEmptyOrNil
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnMouseDown: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
+
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnMouseDownMacro: aString value: aString2 [
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnMouseDownMacro: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
 
-	self assert: aString2 isEmptyOrNil
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnMouseMove: aMOAttribute value: aString [ 
-	 self assert: aString isEmptyOrNil 
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnMouseMove: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
+
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnMouseMoveMacro: aString value: aString2 [
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnMouseMoveMacro: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
 
-	self assert: aString2 isEmptyOrNil
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnMouseUp: aString value:aString2 [ 
-	self assert: aString2 isEmptyOrNil 
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnMouseUp: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
+
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnMouseUpMacro: aMOAttribute value: aString [ 
-	self assert: aString isEmpty
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnMouseUpMacro: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
+
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnNotInList: aString value: aString2 [ 
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnNotInList: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
 
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnNotInListMacro: aString value: aString2 [ 
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnNotInListMacro: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
 
+	
 ]
 
-{ #category : #'as yet unclassified' }
-CGUIModelAbstractStatelessFactory >> visitOnPush: anAttributeName value: aValue [ 
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnPush: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
+
+	
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitOnUndo: aString value: aString2 [
+{ #category : #'visiting - events' }
+CGUIModelAbstractStatelessFactory >> visitOnUndo: anEventName value: aConfiguration [
+	^ self produceEventFor: anEventName ifIsEventProcedure: aConfiguration
 
-	self assert: aString2 isEmptyOrNil
+	
 ]
 
 { #category : #'as yet unclassified' }
@@ -1056,9 +1133,14 @@ CGUIModelAbstractStatelessFactory >> visitRightPadding: aMOAttribute value: anIn
 
 ]
 
-{ #category : #visiting }
-CGUIModelAbstractStatelessFactory >> visitRowSource: aString value: aString2 [ 
+{ #category : #'visiting - data' }
+CGUIModelAbstractStatelessFactory >> visitRowSource: aName value: aValueString [
 
+	^ (self looksLikeSql: aValueString) ifTrue: [ 
+		CGDataBinding new source: (
+		  FylgjaSQLSource new
+			  sql: aValueString;
+			  yourself) ]
 ]
 
 { #category : #visiting }
@@ -1163,8 +1245,10 @@ CGUIModelAbstractStatelessFactory >> visitSmartTags: aString value: anUndefinedO
 CGUIModelAbstractStatelessFactory >> visitSoftEdges: anAttributeName value: aValue [ 
 ]
 
-{ #category : #'as yet unclassified' }
-CGUIModelAbstractStatelessFactory >> visitSourceObject: anAttributeName value: aValue [ 
+{ #category : #'visiting - data' }
+CGUIModelAbstractStatelessFactory >> visitSourceObject: anAttributeName value: aValue [
+
+	self halt
 ]
 
 { #category : #visiting }

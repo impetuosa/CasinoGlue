@@ -16,10 +16,12 @@ CGAngularSimpleBrush >> bindingAttribute [
 
 { #category : #'as yet unclassified' }
 CGAngularSimpleBrush >> computeAttributesFor: aCSNElement [
+
 	| extractor |
 	extractor := MOAngularAttributesExtractor new.
 	extractor forBrush: self.
 	aCSNElement attributes do: [ :a | a accept: extractor ].
+	aCSNElement actions do: [ :a | a accept: extractor ].
 	^ extraAttributes copy addAll: extractor result
 ]
 
@@ -59,7 +61,11 @@ CGAngularSimpleBrush >> write: aCSNUIParagraph into: aXMLWriter [
 
 { #category : #writing }
 CGAngularSimpleBrush >> write: aCSNUIPanel into: aXMLWriter with: aFullBlockClosure [
-	^ aXMLWriter tag: tag with: [ aFullBlockClosure value ]
+
+	^ aXMLWriter
+		  tag: tag
+		  attributes: (self computeAttributesFor: aCSNUIPanel)
+		  with: [ aFullBlockClosure value ]
 ]
 
 { #category : #'as yet unclassified' }

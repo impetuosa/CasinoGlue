@@ -50,16 +50,20 @@ CGUIModelStatelessFactory >> importAccessProperty: aProperty inTheContextOf: anI
 CGUIModelStatelessFactory >> importAccessProperty: aPropertyName state: aValue inTheContextOf: anImportedControl [
 
 	| attribute visitSelector |
-	visitSelector := ('visit' , aPropertyName capitalized , ':value:') asSymbol.
-	
-	(self respondsTo: visitSelector ) ifFalse: [  self class superclass compile: 'visit' , aPropertyName capitalized , ': anAttributeName value: aValue ' ].
-	
+	visitSelector := ('visit' , aPropertyName capitalized , ':value:')
+		                 asSymbol.
+
+	(self respondsTo: visitSelector) ifFalse: [ 
+		self class superclass compile: 'visit' , aPropertyName capitalized
+			, ': anAttributeName value: aValue ' ].
+
 	attribute := self perform: visitSelector withArguments: { 
-			             aPropertyName .
+			             aPropertyName.
 			             aValue }.
 	(attribute isNil or: [ attribute = self ]) ifTrue: [ ^ nil ].
+
 	anImportedControl mooseModel add: attribute.
-	anImportedControl addAttribute: attribute.
+	attribute beAddedInto: anImportedControl.
 	^ attribute
 ]
 
@@ -88,7 +92,7 @@ CGUIModelStatelessFactory >> importForm: aForm widgetInstance: anInstance inTheC
 
 	page := CGPage new
 		        realClassName: aForm class name;
-		        name: (self sanitizeName: aForm name);
+		        name: (self sanitizeName: aForm );
 		        project: aProject;
 		        layout: layout;
 		        yourself.
@@ -231,7 +235,7 @@ CGUIModelStatelessFactory >> resolveLayoutContainer: aLayoutId section: aSection
 { #category : #'as yet unclassified' }
 CGUIModelStatelessFactory >> sanitizeName: aFormOrReport [
 
-	^ (aFormOrReport name copyReplaceAll: 'Form_' with: '')
+	^ (aFormOrReport sanitizedName copyReplaceAll: 'Form_' with: '')
 		  copyReplaceAll: 'Report_'
 		  with: ''
 ]
