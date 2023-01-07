@@ -18,3 +18,9 @@ CSNWidget >> isBoundToData [
 	^ self attributes anySatisfy: [ :a | a isDataBinding ] 
 
 ]
+
+{ #category : #'*CasinoGlue' }
+CSNWidget >> realName [
+
+	^ name
+]
